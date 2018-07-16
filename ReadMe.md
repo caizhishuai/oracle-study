@@ -5,6 +5,14 @@
 conn /as sysdba  连接到数据本地数据
 alter user system identified by password;   修改System 密码  为password 
 
+# 查询当前登录的用户 库
+~~~ SQL
+show user
+show parameter instance_name
+切换库
+sqlplus c1/sa@testdb
+~~~
+
 解锁方法:
 alter user system account unlock
 ~~~
@@ -32,15 +40,31 @@ grant connect,resource,dba to user_name;
 -- RESOURCE:拥有Resource权限的用户只可以创建实体，不可以创建数据库结构。
 -- CONNECT：拥有Connect权限的用户只可以登录Oracle，不可以创建实体，不可以创建数据库结构。
 * 导入数据库文件
-impdp user_name/pwd@orcl dumpfile=xx.DMP   log=xx.log
+imp user_name/pwd@orcl file=d:\zxcc.dmp   log=xx.log;
 -- 将备份文件xx.DMP还原到user_name用户下，并创建名为xx的日志文件xx.log
 * Oracle导出备份文件
-expdp user_name/pwd@orcl  dumpfile =xx.dmp ;
+exp user_name/pwd@orcl  file=d:\zxcc.dmp;
 -- 导出用户user_name下的所有对象，指定导出的备份文件名称为xx.dmp。导出的备份文件默认的存放位置为oracle安装目录下的dpdump文件夹中。
+
+
+
+将数据库zxcc中kf用户与cc用户的表导出
+exp kf/zx@zxcc file=d:\zxcc_ur.dmp owner=(kf,cc)
+
+将数据库zxcc中的表kf_operator、kf_role导出
+exp kf/zx@zxcc file= d:\zxcc_tb.dmp tables=(kf_operator,kf_role)
+
+
 ~~~
+# 查询表所在表空间
+~~~ SQL
+select username,default_tablespace from dba_users  where username='用户名';
+select username,default_tablespace from dba_users order by username;
+~~~
+
 # Oracle 常用操作语句
 ~~~ SQL
-create table test01(
+create table test02(
 id int not null,
 name varchar(8) not null,
 gender varchar2(2) not null,
