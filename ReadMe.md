@@ -160,7 +160,7 @@ create table userinfo_f3 (id varchar2(20) primary key,username varchar2(20),type
 删除约束 drop constraint 约束名字;
 唯一约束 与主键区别 唯一约束可以有多个，只能有一个null
 create table userinfo_u( id varchar2(20) primary key,username varchar2(20) unique,userpwd varchar2(20));
-
+ 
 创建表时添加约束
 constraint 约束名字 unique(列名);
 
