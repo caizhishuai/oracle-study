@@ -184,4 +184,5 @@ select s.username,l.object_id, l.session_id,s.serial#, s.lockwait,s.status,s.mac
 select sql_text from v$sql where hash_value in   (select sql_hash_value from v$session where sid in  (select session_id from v$locked_object));
 alter system kill session 'session_id,serial#'; 
 alter system kill session '301,16405'; 
+set oracle_sid=XXXX,XXXX
 ~~~
